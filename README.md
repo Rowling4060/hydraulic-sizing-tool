@@ -186,7 +186,7 @@ For the project design criterion, the ASHRAE TC 9.9-referenced economic velocity
 [供回水主管管件局部阻力]      ■■ 4.9 kPa (2.3%)
 ```
 
-### 5.3 管网水力与水泵特性曲线 (`assets/system_curve.png`)
+## 5.3 管网水力与水泵特性曲线 (`assets/system_curve.png`)
 生成的特性曲线图清晰标注：
 - **管网总阻力特性曲线**：$\Delta P(Q) = R_{sys} \cdot Q^2$
 - **离心水泵额定工况扬程特性曲线** (100% RPM) 与 **变频调速曲线** (82% RPM)
