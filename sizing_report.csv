@@ -1,0 +1,63 @@
+﻿==========================================================================================
+数据中心液冷二次侧流体管网水力计算与水泵选型计算书
+Data Center Liquid Cooling Secondary Loop Hydraulic Sizing & Pump Calculation Report
+==========================================================================================
+
+【1. 设计边界条件与输入参数 / Design Boundary Conditions】
+参数物理量名称 / Parameter Name,数值 / Value,工程单位 / Unit,中文说明 / Description
+机柜数量 (Rack Count),20,个 / Units,二次侧服务的总IT机柜列柜数量
+单机柜散热功耗 (Rack Power),50.00,kW,单台机柜满负荷液冷散热功率
+系统总散热热负荷 (Total Heat Load),1000.00,kW,二次侧总散热能力需求 (P_total = N * P_rack)
+二次侧设计供水温度 (Supply Temp),35.00,℃,CDU二次侧供水温度 (W35 工况)
+二次侧设计回水温度 (Return Temp),45.00,℃,服务器冷板出口总回水温度
+供回水设计温差 (Delta T),10.00,℃ / K,二次侧主循环温差 ΔT = T_return - T_supply
+选用冷却工质 (Coolant Fluid),去离子水 (Deionized Water),-,工质代号: WATER
+
+【2. 工质在平均工况温度下的热物理性质 / Coolant Properties at Mean Temp】
+物性名称 / Property Name,数值 / Value,工程单位 / Unit,物理量符号与说明 / Symbol & Notes
+参考计算温度 (Reference Temp),40.00,℃,T_avg = (T_supply + T_return) / 2
+流体密度 (Density),992.23,kg/m³,ρ (用于体积流量换算与水头重力位能推导)
+定压比热容 (Specific Heat),4178.32,J/(kg·K),Cp (热平衡循环流量求解关键参数)
+动力粘度 (Dynamic Viscosity),0.6514,mPa·s (cP),μ (雷诺数及粘性切应力阻力核心参数)
+运动粘度 (Kinematic Viscosity),0.6565,mm²/s (cSt),ν = μ / ρ
+流体导热系数 (Thermal Conductivity),0.6254,W/(m·K),k (流体对流换热导热能力)
+普朗特数 (Prandtl Number),4.35,-,Pr = Cp * μ / k
+
+【3. 二次侧总循环流量计算成果 / Secondary Loop Flow Rate Sizing】
+流量表述维度 / Flow Rate Metric,计算数值 / Value,工程单位 / Unit,计算公式 / Governing Formula
+总质量流量 (Mass Flow Rate),23.9331,kg/s,m_dot = P_total / (Cp * ΔT)
+总体积流量 (Volumetric Flow m³/h),86.83,m³/h,Q_m3h = (m_dot / ρ) * 3600
+总体积流量 (Volumetric Flow LPM),1447.24,LPM (L/min),"Q_LPM = Q_m3s * 60,000"
+单机柜平均流量 (Per-Rack Flow),72.36,LPM / rack,q_rack = Q_total / N_racks
+
+【4. 主供回水集管(Manifold)不同管径水力比选对比表 / Pipe Sizing Comparison】
+公称通径 DN,英制尺寸,外径 (mm),壁厚 (mm),内径 (mm),流速 (m/s),雷诺数 Re,流态判定,达西阻力系数 f,比摩阻 (Pa/m),沿程压降 (kPa),管件局部压降 (kPa),集管总压降 (kPa),总水头损失 (mH2O),工程评估状态,选型建议
+DN50,"2""",60.3,2.0,56.3,9.69,830872,紊流/湍流 (Turbulent),0.0190,15750.7,787.54,158.35,945.89,97.21,流速超标 (>2.5m/s)，存在剧烈冲刷腐蚀与水锤噪音风险,备选 / Alternative
+DN65,"2.5""",76.1,2.0,72.1,5.91,648795,紊流/湍流 (Turbulent),0.0182,4374.4,218.72,58.87,277.59,28.53,流速超标 (>2.5m/s)，存在剧烈冲刷腐蚀与水锤噪音风险,备选 / Alternative
+DN80,"3""",88.9,2.5,83.9,4.36,557546,紊流/湍流 (Turbulent),0.0178,2003.3,100.16,32.11,132.27,13.59,流速超标 (>2.5m/s)，存在剧烈冲刷腐蚀与水锤噪音风险,备选 / Alternative
+DN100,"4""",114.3,3.0,108.3,2.62,431931,紊流/湍流 (Turbulent),0.0173,542.2,27.11,11.56,38.68,3.97,流速超标 (>2.5m/s)，存在剧烈冲刷腐蚀与水锤噪音风险,备选 / Alternative
+DN125,"5""",141.3,3.5,134.3,1.70,348310,紊流/湍流 (Turbulent),0.0170,182.0,9.10,4.89,13.99,1.44,推荐流速区间 (1.2~2.0m/s)，阻力与管材投资最佳平衡点,【推荐管径 / RECOMMENDED】
+DN150,"6""",168.3,4.0,160.3,1.20,291816,紊流/湍流 (Turbulent),0.0169,74.7,3.73,2.41,6.14,0.63,流速偏低 (0.8~1.2m/s)，水阻极低但管径偏大增加投资,备选 / Alternative
+DN200,"8""",219.1,4.5,210.1,0.70,222647,紊流/湍流 (Turbulent),0.0170,19.4,0.97,0.82,1.79,0.18,管径严重过大 (<0.8m/s)，初投资过高且微气泡不易带走,备选 / Alternative
+
+【5. 选定主集管 [DN125] 时系统各部件水力阻力明细 / Component Pressure Breakdown】
+部件中文名称 / Component CN,部件英文名称 / Component EN,所属子系统 / Category,额定压降 (kPa),水头损失 (mH2O),阻力占比 (%)
+板式换热器二次侧阻力,Plate Heat Exchanger (PHE),CDU,45.00,4.62,21.0%
+CDU内部附件(过滤器/止回阀/内管),CDU Internal Piping & Strainer,CDU,35.00,3.60,16.4%
+供回水主管沿程阻力 (DN125),Main Manifold Major Loss (DN125),Distribution,9.10,0.93,4.3%
+供回水主管管件局部阻力,Main Manifold Fittings Minor Loss,Distribution,4.89,0.50,2.3%
+机柜级快接头对阻力 (进水QD+回水QD),Quick Disconnects (Supply+Return QD),Rack Branch,25.00,2.57,11.7%
+机柜内服务器冷板及分配管阻力,Server Cold Plates & Chassis RDM,Rack Branch,80.00,8.22,37.4%
+机柜支路平衡调节阀与软管,Rack Branch Valve & Flexible Hose,Rack Branch,15.00,1.54,7.0%
+
+【6. 管网总阻力与二次侧循环水泵选型指标 / Total System Head & Pump Duty Point】
+水泵选型参数项 / Pump Duty Parameter,计算输出值 / Output Value,工程单位 / Unit,工程设计指引与安全裕量建议 / Engineering Notes
+二次侧系统总设计阻力 (Total System ΔP),213.99,kPa,包含板换、主管、快接头、冷板的管网总损失
+二次侧系统总设计阻力 (Total ΔP in bar),2.140,bar,工程压力表直接读数参考
+水泵额定设计扬程 (Pump Rated Head),21.99,mH2O,H = ΔP / (ρ * g)，建议水泵选型留 10%~15% 扬程裕量
+流体水力有效功率 (Hydraulic Power),5.16,kW,P_hyd = Q * ΔP
+水泵轴功率需求 (Pump Shaft Power),6.88,kW,按水泵水力效率 75% 计算 (P_shaft = P_hyd / 0.75)
+水泵电机输入电功率 (Motor Electric Power),7.48,kW,按 IE4 高效电机效率 92% 计算
+系统流阻综合系数 (System Resistance R),0.028380,kPa / (m³/h)²,管网特性方程: ΔP(Q) = R * Q²
+
+--- 报告生成完毕 / End of Sizing Report ---
