@@ -1,7 +1,8 @@
 # 数据中心液冷二次侧流体管网水力计算与水泵选型工具
 # Data Center Liquid Cooling Secondary Hydraulic Sizing & Pump Sizing Tool
 
-![System Hydraulic & Pump Curve](assets/system_curve.png)
+<img width="1919" height="941" alt="image" src="https://github.com/user-attachments/assets/623bcad5-423f-4c3d-96f9-05f2e9b1537b" />
+
 
 本项目专为高密度数据中心液冷系统（DLC, Direct-to-Chip Liquid Cooling）二次侧管网设计打造，涵盖 **热平衡流量求解**、**基于达西-威斯巴赫（Darcy-Weisbach）方程与科尔布鲁克-怀特（Colebrook-White）精确迭代的主供回水集管水力比选**、**全管网设备部件阻力叠加（板换、CDU附件、快接头QD、冷板）**、**水泵扬程与轴功率推导**，以及 **标准选型计算书 CSV 导出与高精度工程特性曲线绘制**。
 
